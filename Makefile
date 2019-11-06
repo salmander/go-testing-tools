@@ -6,7 +6,8 @@ deps:
 	go mod vendor -v
 
 clean_mocks:
-	rm -rf mocks/
+	rm -rf example_gomock/mocks
+	rm -rf example_counterfeiter/mocks
 
 mocks: clean_mocks
 	go generate -v ./...

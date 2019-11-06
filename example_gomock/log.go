@@ -1,4 +1,4 @@
-package go_testing_tools
+package example_gomock
 
 //go:generate mockgen -destination=./mocks/log.go -source=log.go
 type CustomLogger interface {
