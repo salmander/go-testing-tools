@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/salmander/go-testing-tools/example_counterfeiter"
+	go_testing_tools "github.com/salmander/go-testing-tools"
 	"github.com/salmander/go-testing-tools/example_counterfeiter/mocks"
 	"github.com/stretchr/testify/assert"
 )
@@ -18,9 +18,9 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound(t *testing.T) {
 
 	productRepositoryError := errors.New("some error")
 
-	mockProductRepository.FindProductByEanReturnsOnCall(0, example_counterfeiter.Product{}, productRepositoryError)
+	mockProductRepository.FindProductByEanReturnsOnCall(0, go_testing_tools.Product{}, productRepositoryError)
 
-	productSearch := example_counterfeiter.ProductSearch{
+	productSearch := go_testing_tools.ProductSearch{
 		ProductRepo: mockProductRepository,
 		Logger:      mockLogger,
 	}
@@ -38,6 +38,6 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound(t *testing.T) {
 	assert.Equal(t, ean, callingArgs[0])
 	assert.Equal(t, productRepositoryError, callingArgs[1])
 
-	assert.IsType(t, err, example_counterfeiter.ProductRetrieveError(errors.New("err")))
-	assert.Equal(t, actual, example_counterfeiter.Product{})
+	assert.IsType(t, err, go_testing_tools.ProductRetrieveError(errors.New("err")))
+	assert.Equal(t, actual, go_testing_tools.Product{})
 }

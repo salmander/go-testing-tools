@@ -1,4 +1,3 @@
-.PHONY: mocks
 
 deps:
 	go get github.com/golang/mock/gomock
@@ -9,5 +8,6 @@ clean_mocks:
 	rm -rf example_gomock/mocks
 	rm -rf example_counterfeiter/mocks
 
+.PHONY: mocks
 mocks: clean_mocks
 	go generate -v ./...

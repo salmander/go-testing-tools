@@ -1,6 +1,7 @@
-package example_counterfeiter
+package go_testing_tools
 
-//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -o mocks/product.go --fake-name Product . ProductRepository
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -o example_counterfeiter/mocks/product.go --fake-name Product . ProductRepository
+//go:generate mockgen -destination=./example_gomock/mocks/product.go -source=product.go
 type ProductRepository interface {
 	FindProductByEan(ean string) (Product, error)
 }

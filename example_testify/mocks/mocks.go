@@ -1,7 +1,7 @@
 package mocks
 
 import (
-	"github.com/salmander/go-testing-tools/example_testify"
+	go_testing_tools "github.com/salmander/go-testing-tools"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -9,9 +9,9 @@ type MockProductRepository struct {
 	mock.Mock
 }
 
-func (m *MockProductRepository) FindProductByEan(ean string) (example_testify.Product, error) {
+func (m *MockProductRepository) FindProductByEan(ean string) (go_testing_tools.Product, error) {
 	args := m.Called(ean)
-	return args.Get(0).(example_testify.Product), args.Error(1)
+	return args.Get(0).(go_testing_tools.Product), args.Error(1)
 }
 
 type MockLogger struct {
