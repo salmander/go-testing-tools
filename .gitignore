@@ -1,2 +1,4 @@
+.DS_Store
 vendor
 mocks
+.idea/workspace.xml

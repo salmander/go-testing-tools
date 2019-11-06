@@ -2,11 +2,11 @@ package go_testing_tools
 
 //go:generate mockgen -destination=./mocks/product.go -source=product.go
 type ProductRepository interface {
-	GetProductByEan(ean string) (Product, error)
+	FindProductByEan(ean string) (Product, error)
 }
 
 type Product struct {
-	Ean string
+	Ean         string
 	Description string
 }
 
