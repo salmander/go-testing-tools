@@ -18,12 +18,12 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound(t *testing.T) {
 
 	productRepositoryError := errors.New("some error")
 
+	mockProductRepository.FindProductByEanReturnsOnCall(0, example_counterfeiter.Product{}, productRepositoryError)
+
 	productSearch := example_counterfeiter.ProductSearch{
 		ProductRepo: mockProductRepository,
 		Logger:      mockLogger,
 	}
-
-	mockProductRepository.FindProductByEanReturnsOnCall(0, example_counterfeiter.Product{}, productRepositoryError)
 
 	// Act
 	actual, err := productSearch.GetProduct(ean)
