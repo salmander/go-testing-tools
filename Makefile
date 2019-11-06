@@ -7,8 +7,8 @@ deps:
 
 .PHONY: clean_mocks
 clean_mocks:
-	rm -rf example_gomock/mocks
-	rm -rf example_counterfeiter/mocks
+	rm -rf counterfeiter_mocks
+	rm -rf gomock_mocks
 
 .PHONY: mocks
 mocks: clean_mocks

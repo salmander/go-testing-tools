@@ -1,4 +1,4 @@
-package mocks
+package testify_mocks
 
 import (
 	go_testing_tools "github.com/salmander/go-testing-tools"

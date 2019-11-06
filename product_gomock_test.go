@@ -1,4 +1,4 @@
-package example_gomock_test
+package go_testing_tools_test
 
 import (
 	"errors"
@@ -6,19 +6,19 @@ import (
 
 	"github.com/golang/mock/gomock"
 	go_testing_tools "github.com/salmander/go-testing-tools"
-	mock_go_testing_tools "github.com/salmander/go-testing-tools/example_gomock/mocks"
+	"github.com/salmander/go-testing-tools/gomock_mocks"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound(t *testing.T) {
+func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_GoMock(t *testing.T) {
 	//Arrange
 	ean := "1234"
 
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockProductRepository := mock_go_testing_tools.NewMockProductRepository(ctrl)
-	mockLogger := mock_go_testing_tools.NewMockCustomLogger(ctrl)
+	mockProductRepository := gomock_mocks.NewMockProductRepository(ctrl)
+	mockLogger := gomock_mocks.NewMockCustomLogger(ctrl)
 
 	productRepositoryError := errors.New("some error")
 

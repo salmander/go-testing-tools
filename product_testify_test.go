@@ -1,21 +1,21 @@
-package example_testify_test
+package go_testing_tools_test
 
 import (
 	"errors"
 	"testing"
 
 	go_testing_tools "github.com/salmander/go-testing-tools"
-	"github.com/salmander/go-testing-tools/example_testify/mocks"
+	"github.com/salmander/go-testing-tools/testify_mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
 
-func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound(t *testing.T) {
+func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_Testify(t *testing.T) {
 	//Arrange
 	ean := "1234"
 
-	mockProductRepository := new(mocks.MockProductRepository)
-	mockLogger := new(mocks.MockLogger)
+	mockProductRepository := new(testify_mocks.MockProductRepository)
+	mockLogger := new(testify_mocks.MockLogger)
 
 	productRepositoryError := errors.New("some error")
 

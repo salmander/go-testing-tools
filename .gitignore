@@ -1,5 +1,5 @@
 .DS_Store
 vendor
-example_counterfeiter/mocks
-example_gomock/mocks
+counterfeiter_mocks
+gomock_mocks
 .idea/workspace.xml

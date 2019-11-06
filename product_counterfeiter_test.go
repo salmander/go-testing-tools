@@ -1,20 +1,20 @@
-package example_counterfeiter_test
+package go_testing_tools_test
 
 import (
 	"errors"
 	"testing"
 
 	go_testing_tools "github.com/salmander/go-testing-tools"
-	"github.com/salmander/go-testing-tools/example_counterfeiter/mocks"
+	"github.com/salmander/go-testing-tools/counterfeiter_mocks"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound(t *testing.T) {
+func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_Counterfeiter(t *testing.T) {
 	//Arrange
 	ean := "1234"
 
-	mockProductRepository := &mocks.Product{}
-	mockLogger := &mocks.Log{}
+	mockProductRepository := &counterfeiter_mocks.Product{}
+	mockLogger := &counterfeiter_mocks.Log{}
 
 	productRepositoryError := errors.New("some error")
 
