@@ -38,6 +38,6 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_Counterfeiter(t 
 	assert.Equal(t, ean, callingArgs[0])
 	assert.Equal(t, productRepositoryError, callingArgs[1])
 
-	assert.IsType(t, err, go_testing_tools.ProductRetrieveError(errors.New("err")))
+	assert.Equal(t, err, go_testing_tools.ProductRetrieveError(productRepositoryError))
 	assert.Equal(t, actual, go_testing_tools.Product{})
 }

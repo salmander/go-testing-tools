@@ -40,6 +40,6 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_Testify(t *testi
 	mockProductRepository.AssertExpectations(t)
 	mockLogger.AssertExpectations(t)
 
-	assert.IsType(t, err, go_testing_tools.ProductRetrieveError(errors.New("err")))
+	assert.Equal(t, err, go_testing_tools.ProductRetrieveError(productRepositoryError))
 	assert.Equal(t, actual, go_testing_tools.Product{})
 }

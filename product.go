@@ -6,6 +6,12 @@ type ProductRepository interface {
 	FindProductByEan(ean string) (Product, error)
 }
 
+type ElasticSearch struct{}
+
+func (es ElasticSearch) FindProductByEan(ean string) (Product, error) {
+	return Product{}, nil
+}
+
 type Product struct {
 	Ean         string
 	Description string
@@ -25,10 +31,4 @@ func (p ProductSearch) GetProduct(ean string) (Product, error) {
 		return Product{}, ProductRetrieveError(err)
 	}
 	return product, nil
-}
-
-type ElasticSearch struct{}
-
-func (es ElasticSearch) FindProductByEan(ean string) (Product, error) {
-	return Product{}, nil
 }
