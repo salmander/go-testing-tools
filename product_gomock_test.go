@@ -6,6 +6,7 @@ import (
 
 	"github.com/golang/mock/gomock"
 	go_testing_tools "github.com/salmander/go-testing-tools"
+	"github.com/salmander/go-testing-tools/entity"
 	"github.com/salmander/go-testing-tools/gomock_mocks"
 	"github.com/stretchr/testify/assert"
 )
@@ -24,14 +25,14 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_GoMock(t *testin
 
 	gomock.InOrder(
 		mockProductRepository.EXPECT().
-			FindProductByEan(ean).
+			Get(ean).
 			Times(1).
-			Return(go_testing_tools.Product{}, productRepositoryError),
+			Return(entity.Product{}, productRepositoryError),
 		mockLogger.EXPECT().
 			Log(gomock.Any(), ean, productRepositoryError).Times(1),
 	)
 
-	productSearch := go_testing_tools.ProductSearch{
+	productSearch := go_testing_tools.ProductService{
 		ProductRepo: mockProductRepository,
 		Logger:      mockLogger,
 	}
@@ -41,5 +42,5 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_GoMock(t *testin
 
 	// Assert
 	assert.Equal(t, err, go_testing_tools.ProductRetrieveError(productRepositoryError))
-	assert.Equal(t, actual, go_testing_tools.Product{})
+	assert.Equal(t, actual, entity.Product{})
 }

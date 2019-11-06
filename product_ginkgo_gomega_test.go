@@ -7,10 +7,11 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	go_testing_tools "github.com/salmander/go-testing-tools"
+	"github.com/salmander/go-testing-tools/entity"
 	"github.com/salmander/go-testing-tools/gomock_mocks"
 )
 
-var _ = Describe("ProductSearch", func() {
+var _ = Describe("ProductService", func() {
 	var ctrl *gomock.Controller
 
 	BeforeEach(func() {
@@ -33,14 +34,14 @@ var _ = Describe("ProductSearch", func() {
 
 			gomock.InOrder(
 				mockProductRepository.EXPECT().
-					FindProductByEan(ean).
+					Get(ean).
 					Times(1).
-					Return(go_testing_tools.Product{}, productRepositoryError),
+					Return(entity.Product{}, productRepositoryError),
 				mockLogger.EXPECT().
 					Log(gomock.Any(), ean, productRepositoryError).Times(1),
 			)
 
-			productSearch := go_testing_tools.ProductSearch{
+			productSearch := go_testing_tools.ProductService{
 				ProductRepo: mockProductRepository,
 				Logger:      mockLogger,
 			}
@@ -51,7 +52,7 @@ var _ = Describe("ProductSearch", func() {
 			// Assert
 			Expect(err).To(HaveOccurred())
 			Expect(err).To(MatchError(go_testing_tools.ProductRetrieveError(productRepositoryError)))
-			Expect(actual).To(Equal(go_testing_tools.Product{}))
+			Expect(actual).To(Equal(entity.Product{}))
 		})
 	})
 })

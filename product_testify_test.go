@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	go_testing_tools "github.com/salmander/go-testing-tools"
+	"github.com/salmander/go-testing-tools/entity"
 	"github.com/salmander/go-testing-tools/testify_mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -20,15 +21,15 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_Testify(t *testi
 	productRepositoryError := errors.New("some error")
 
 	mockProductRepository.
-		On("FindProductByEan", ean).
+		On("Get", ean).
 		Times(1).
-		Return(go_testing_tools.Product{}, productRepositoryError)
+		Return(entity.Product{}, productRepositoryError)
 
 	mockLogger.
 		On("Log", mock.Anything, []interface{}{ean, productRepositoryError}).
 		Times(1)
 
-	productSearch := go_testing_tools.ProductSearch{
+	productSearch := go_testing_tools.ProductService{
 		ProductRepo: mockProductRepository,
 		Logger:      mockLogger,
 	}
@@ -41,5 +42,5 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound_Testify(t *testi
 	mockLogger.AssertExpectations(t)
 
 	assert.Equal(t, err, go_testing_tools.ProductRetrieveError(productRepositoryError))
-	assert.Equal(t, actual, go_testing_tools.Product{})
+	assert.Equal(t, actual, entity.Product{})
 }
