@@ -14,28 +14,32 @@ func TestProductSearch_GetProductReturnsErrorIfNoProductIsFound(t *testing.T) {
 	//Arrange
 	ean := "1234"
 
-	expectedErr := errors.New("error finding product")
-
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
 	mockProductRepository := mock_go_testing_tools.NewMockProductRepository(ctrl)
+	mockLogger := mock_go_testing_tools.NewMockCustomLogger(ctrl)
+
+	productRepositoryError := errors.New("some error")
 
 	gomock.InOrder(
 		mockProductRepository.EXPECT().
 			FindProductByEan(ean).
 			Times(1).
-			Return(go_testing_tools.Product{}, expectedErr),
+			Return(go_testing_tools.Product{}, productRepositoryError),
+		mockLogger.EXPECT().
+			Log(gomock.Any(), ean, productRepositoryError).Times(1),
 	)
 
 	productSearch := go_testing_tools.ProductSearch{
 		ProductRepo: mockProductRepository,
+		Logger:      mockLogger,
 	}
 
 	// Act
 	actual, err := productSearch.GetProduct(ean)
 
 	// Assert
-	assert.Equal(t, err, expectedErr)
+	assert.IsType(t, err, go_testing_tools.ProductRetrieveError(errors.New("err")))
 	assert.Equal(t, actual, go_testing_tools.Product{})
 }
